@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,7 +8,18 @@
 </head>
 <body>
   <header>
-    <div class="profile-header">
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Profile Header -->
+    <div class="profile-header" id="home">
       <img src="image/profile.jpeg" alt="Profile Picture" class="profile-pic" />
       <div class="header-text">
         <h1>Sankar</h1>
@@ -18,7 +29,7 @@
   </header>
 
   <main>
-    <section>
+    <section id="about">
       <h2>💼 About Me</h2>
       <p>
         I'm a cybersecurity engineering student passionate about ethical hacking, networking tools, and Linux-based development.
@@ -26,7 +37,7 @@
       </p>
     </section>
 
-    <section>
+    <section id="projects">
       <h2>🚀 Featured Projects</h2>
       <ul>
         <li>
@@ -51,4 +62,19 @@
         </li>
         <li>
           <strong>🐧 Arch Linux Configs</strong><br>
-          Dotfiles and Hyprland set
+          Dotfiles and Hyprland setup for a minimal and efficient Linux desktop experience.  
+          <a href="https://github.com/sankarlmao/arch-linux-configs" target="_blank">View Project</a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>📫 Contact</h2>
+      <p>Email: <a href="mailto:imsankarlmao@gmail.com">imsankarlmao@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/sankarcy" target="_blank">linkedin.com/in/sankarcy</a></p>
+      <p>GitHub: <a href="https://github.com/sankarlmao" target="_blank">github.com/sankarlmao</a></p>
+      <p>Portfolio: <a href="https://sankarlmao.github.io" target="_blank">sankarlmao.github.io</a></p>
+    </section>
+  </main>
+</body>
+</html>
