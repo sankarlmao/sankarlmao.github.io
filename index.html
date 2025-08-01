@@ -1,56 +1,51 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sankar | Cybersecurity & Dev Projects</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF‑8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sankar Lmao – Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <div class="profile-header">
-      <img src="image/profile.jpeg" alt="Profile Picture" class="profile-pic" />
-      <div class="header-text">
-        <h1>Sankar</h1>
-        <p>CSE & Cybersecurity Engineering Student | Linux Enthusiast | Security Explorer</p>
-      </div>
-    </div>
+    <h1>Sankar Lmao</h1>
+    <p>CSE & Cybersecurity Engineering Student</p>
   </header>
 
-  <main>
-    <section>
-      <h2>💼 About Me</h2>
-      <p>
-        I'm a cybersecurity engineering student passionate about ethical hacking, networking tools, and Linux-based development.
-        I build tools that blend deep tech with real-world functionality, including scanners, analyzers, and system monitors.
-      </p>
-    </section>
+  <section id="projects">
+    <h2>Recent Projects</h2>
+    <div class="projects-grid">
+      <!-- Example project card -->
+      <div class="project-card">
+        <h3>Project 1 Title</h3>
+        <p>Description of the project you developed with me—highlight tech stack, key features, what you learned.</p>
+        <a href="https://github.com/yourusername/project‑1" target="_blank">View on GitHub</a>
+      </div>
+      <!-- Add more project cards below -->
+      <div class="project-card">
+        <h3>Project 2 Title</h3>
+        <p>Description of the project—key features and your contributions.</p>
+        <a href="https://github.com/yourusername/project‑2" target="_blank">View on GitHub</a>
+      </div>
+      <!-- ... -->
+    </div>
+  </section>
 
-    <section>
-      <h2>🚀 Featured Projects</h2>
-      <ul>
-        <li>
-          <strong>🔍 Network Traffic Analyzer</strong><br>
-          Real-time packet inspection tool for network analysis and monitoring.  
-          <a href="https://github.com/sankarlmao/network-traffic-analyzer" target="_blank">View Project</a>
-        </li>
-        <li>
-          <strong>🛡️ Vulnerability Scanner</strong><br>
-          Detects open ports, vulnerabilities, and network misconfigurations using Nmap and Scapy.  
-          <a href="https://github.com/sankarlmao/vulnerability-scanner" target="_blank">View Project</a>
-        </li>
-        <li>
-          <strong>🧠 Credential Brute Forcer</strong><br>
-          Python-based tool for brute-forcing login forms—built for security research purposes only.  
-          <a href="https://github.com/sankarlmao/credential-brute-forcer" target="_blank">View Project</a>
-        </li>
-        <li>
-          <strong>📊 Linux Monitoring Tool</strong><br>
-          Terminal-based system monitor for CPU, memory, and storage usage, tailored for Linux.  
-          <a href="https://github.com/sankarlmao/linux-monitoring-tool" target="_blank">View Project</a>
-        </li>
-        <li>
-          <strong>🐧 Arch Linux Configs</strong><br>
-          Dotfiles and Hyprland set
+  <section id="github-activity">
+    <h2>GitHub Activity</h2>
+    <div class="calendar-graph">
+      <!-- GitHub contributions calendar will appear here -->
+    </div>
+  </section>
 
-         
+  <footer>
+    <p>© 2025 Sankar Lmao. All rights reserved.</p>
+  </footer>
+
+  <!-- GitHub contributions calendar script -->
+  <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
+  <script>
+    GitHubCalendar(".calendar-graph", "sankarlmao", { responsive: true });
+  </script>
+</body>
+</html>
