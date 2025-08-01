@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sankar Lmao – Cybersecurity Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Embedded CSS -->
   <style>
     * {
       margin: 0;
@@ -13,90 +13,179 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0f0f;
+      color: #e0e0e0;
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
+
     header {
-      background-color: #003300;
-      color: #ffd700;
-      padding: 2rem 1rem;
+      background: linear-gradient(135deg, #0f0f0f, #004d00);
+      color: #00ff88;
       text-align: center;
+      padding: 3rem 1rem;
     }
+
     header h1 {
       font-size: 3rem;
+      font-weight: 700;
+      animation: fadeIn 1s ease-in;
     }
+
     header p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
+      color: #b8ffdb;
     }
+
     section {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
     }
+
     h2 {
-      margin-bottom: 1rem;
       font-size: 2rem;
-      color: #003300;
+      margin-bottom: 1.5rem;
+      color: #00ff88;
+      border-left: 4px solid #00ff88;
+      padding-left: 10px;
     }
+
     .projects-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
     }
+
     .project-card {
-      background: white;
+      background: #1a1a1a;
       padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 255, 136, 0.1);
       flex: 1 1 280px;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+    }
+
     .project-card h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.4rem;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+      font-size: 1.3rem;
     }
+
     .project-card p {
+      color: #cccccc;
       margin-bottom: 1rem;
     }
+
     .project-card a {
-      text-decoration: none;
-      color: #003300;
+      color: #00ff88;
       font-weight: bold;
+      text-decoration: none;
     }
+
     .project-card a:hover {
       text-decoration: underline;
     }
-    .calendar-graph {
-      background: white;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    .github-graph {
+      text-align: center;
+      padding: 3rem 1rem;
     }
+
+    .calendar-graph img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .topnav {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  z-index: 1000;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.topnav a {
+  color: #00ff88;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topnav a:hover {
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .topnav {
+    top: 10px;
+    right: 20px;
+    font-size: 0.9rem;
+    gap: 1rem;
+  }
+}
+
+    
+
     footer {
       text-align: center;
-      padding: 1rem;
-      background: #eaeaea;
+      padding: 1.5rem;
+      background: #121212;
       font-size: 0.9rem;
-      color: #666;
+      color: #777;
     }
-    @media (max-width: 600px) {
+
+    @media (max-width: 700px) {
       .projects-grid {
         flex-direction: column;
       }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
-
-  <!-- GitHub Calendar -->
-  <link href="https://unpkg.com/github-calendar@latest/dist/github-calendar.css" rel="stylesheet"/>
-  <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
 </head>
+
 <body>
+    <nav class="topnav">
+  <a href="#">Home</a>
+  <a href="#projects">Projects</a>
+  <a href="https://github.com/sankarlmao">GitHub</a>
+</nav>
+
+
   <header>
-    <h1>Sankar Lmao</h1>
+    <h1>Sankar B</h1>
     <p>Cybersecurity & CSE Student · Developer · Builder</p>
   </header>
+  <div class="container">
+  
+  <div class="main-content">
+    
+  </div>
+
+ 
+
+</div>
+
 
   <section id="projects">
     <h2>Projects</h2>
@@ -112,11 +201,6 @@
         <a href="https://github.com/sankarlmao/port-authentication-system" target="_blank">View on GitHub</a>
       </div>
       <div class="project-card">
-        <h3>nXtstop - Bus Tracker</h3>
-        <p>App to track real-time location of private and public buses for students and commuters in Kerala.</p>
-        <a href="https://github.com/sankarlmao/nXtstop" target="_blank">View on GitHub</a>
-      </div>
-      <div class="project-card">
         <h3>USB Rubber Ducky – Reverse Shell</h3>
         <p>Payload script that opens a reverse shell when the USB is inserted, for ethical hacking demonstrations.</p>
         <a href="https://github.com/sankarlmao/reverse-shell-ducky" target="_blank">View on GitHub</a>
@@ -129,19 +213,16 @@
     </div>
   </section>
 
-  <section id="github-activity">
+  <div class="github-graph">
     <h2>GitHub Activity</h2>
     <div class="calendar-graph">
-      Loading GitHub contribution graph...
+      <img src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&bg_color=0f0f0f&color=00ff88&line=00ff88&point=ffffff&area=true&hide_border=true" alt="GitHub Contribution Graph" />
     </div>
-  </section>
+  </div>
 
   <footer>
     <p>© 2025 Sankar Lmao. All rights reserved.</p>
   </footer>
 
-  <script>
-    GitHubCalendar(".calendar-graph", "sankarlmao", { responsive: true });
-  </script>
 </body>
 </html>
