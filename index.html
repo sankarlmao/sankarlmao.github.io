@@ -1,40 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF‑8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sankar Lmao – Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sankar Lmao – Cybersecurity Portfolio</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
+  <link href="https://unpkg.com/github-calendar@latest/dist/github-calendar.css" rel="stylesheet"/>
 </head>
 <body>
   <header>
     <h1>Sankar Lmao</h1>
-    <p>CSE & Cybersecurity Engineering Student</p>
+    <p>Cybersecurity & CSE Student · Developer · Builder</p>
   </header>
 
   <section id="projects">
-    <h2>Recent Projects</h2>
+    <h2>Projects</h2>
     <div class="projects-grid">
-      <!-- Example project card -->
       <div class="project-card">
-        <h3>Project 1 Title</h3>
-        <p>Description of the project you developed with me—highlight tech stack, key features, what you learned.</p>
-        <a href="https://github.com/yourusername/project‑1" target="_blank">View on GitHub</a>
+        <h3>Vulnerability Scanner</h3>
+        <p>A Python-based scanner using Nmap, Socket, and Scapy with network-wide scanning, PDF export, and Telegram alerts.</p>
+        <a href="https://github.com/sankarlmao/vulnerability-scanner" target="_blank">View on GitHub</a>
       </div>
-      <!-- Add more project cards below -->
       <div class="project-card">
-        <h3>Project 2 Title</h3>
-        <p>Description of the project—key features and your contributions.</p>
-        <a href="https://github.com/yourusername/project‑2" target="_blank">View on GitHub</a>
+        <h3>Port Authentication System</h3>
+        <p>A local authentication mechanism for open ports using secure socket layers and custom login rules.</p>
+        <a href="https://github.com/sankarlmao/port-authentication-system" target="_blank">View on GitHub</a>
       </div>
-      <!-- ... -->
+      <div class="project-card">
+        <h3>nXtstop - Bus Tracker</h3>
+        <p>App to track real-time location of private and public buses for students and commuters in Kerala.</p>
+        <a href="https://github.com/sankarlmao/nXtstop" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <h3>USB Rubber Ducky – Reverse Shell</h3>
+        <p>Payload script that opens a reverse shell when the USB is inserted, for ethical hacking demonstrations.</p>
+        <a href="https://github.com/sankarlmao/reverse-shell-ducky" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <h3>Network Traffic Analyzer</h3>
+        <p>Monitors and analyzes packet-level traffic on a LAN, built using Scapy and Python GUI frameworks.</p>
+        <a href="https://github.com/sankarlmao/network-traffic-analyzer" target="_blank">View on GitHub</a>
+      </div>
     </div>
   </section>
 
   <section id="github-activity">
     <h2>GitHub Activity</h2>
     <div class="calendar-graph">
-      <!-- GitHub contributions calendar will appear here -->
+      Loading GitHub contribution graph...
     </div>
   </section>
 
@@ -42,8 +56,6 @@
     <p>© 2025 Sankar Lmao. All rights reserved.</p>
   </footer>
 
-  <!-- GitHub contributions calendar script -->
-  <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
   <script>
     GitHubCalendar(".calendar-graph", "sankarlmao", { responsive: true });
   </script>
