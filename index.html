@@ -1,10 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="refresh" content="0; url=https://my-site-skxcpduq-imsankarlmao.wix-vibe.com/" />
-  <title>Redirecting...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sankar Lmao – Cybersecurity Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0f0f;
+      color: #e0e0e0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f0f0f, #004d00);
+      color: #00ff88;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      animation: fadeIn 1s ease-in;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      color: #b8ffdb;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #00ff88;
+      border-left: 4px solid #00ff88;
+      padding-left: 10px;
+    }
+
+    .projects-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 255, 136, 0.1);
+      flex: 1 1 280px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+    }
+
+    .project-card h3 {
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+      font-size: 1.3rem;
+    }
+
+    .project-card p {
+      color: #cccccc;
+      margin-bottom: 1rem;
+    }
+
+    .project-card a {
+      color: #00ff88;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .project-card a:hover {
+      text-decoration: underline;
+    }
+
+    .github-graph {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .calendar-graph img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .topnav {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  z-index: 1000;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.topnav a {
+  color: #00ff88;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topnav a:hover {
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .topnav {
+    top: 10px;
+    right: 20px;
+    font-size: 0.9rem;
+    gap: 1rem;
+  }
+}
+
+    
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #121212;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    @media (max-width: 700px) {
+      .projects-grid {
+        flex-direction: column;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
+
 <body>
-  <p>If you are not redirected, <a href="https://my-site-skxcpduq-imsankarlmao.wix-vibe.com/">click here</a>.</p>
+    <nav class="topnav">
+  <a href="#">Home</a>
+  <a href="#projects">Projects</a>
+  <a href="https://github.com/sankarlmao">GitHub</a>
+</nav>
+
+
+  <header>
+    <h1>Sankar B</h1>
+    <p>Cybersecurity & CSE Student · Developer · Builder</p>
+  </header>
+  <div class="container">
+  
+  <div class="main-content">
+    
+  </div>
+
+ 
+
+</div>
+
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Vulnerability Scanner</h3>
+        <p>A Python-based scanner using Nmap, Socket, and Scapy with network-wide scanning, PDF export, and Telegram alerts.</p>
+        <a href="https://github.com/sankarlmao/vulnerability-scanner" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <h3>Port Authentication System</h3>
+        <p>A local authentication mechanism for open ports using secure socket layers and custom login rules.</p>
+        <a href="https://github.com/sankarlmao/port-authentication-system" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <h3>USB Rubber Ducky – Reverse Shell</h3>
+        <p>Payload script that opens a reverse shell when the USB is inserted, for ethical hacking demonstrations.</p>
+        <a href="https://github.com/sankarlmao/reverse-shell-ducky" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <h3>Network Traffic Analyzer</h3>
+        <p>Monitors and analyzes packet-level traffic on a LAN, built using Scapy and Python GUI frameworks.</p>
+        <a href="https://github.com/sankarlmao/network-traffic-analyzer" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="github-graph">
+    <h2>GitHub Activity</h2>
+    <div class="calendar-graph">
+      <img src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&bg_color=0f0f0f&color=00ff88&line=00ff88&point=ffffff&area=true&hide_border=true" alt="GitHub Contribution Graph" />
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Sankar Lmao. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
