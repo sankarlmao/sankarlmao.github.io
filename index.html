@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sankar Lmao – Cybersecurity Portfolio</title>
+  <title>sankar</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -21,8 +21,9 @@
     }
 
     header {
-      background: linear-gradient(135deg, #0f0f0f, #004d00);
-      color: #00ff88;
+      /* change gradient from green → red tones */
+      background: linear-gradient(135deg, #0f0f0f, #800000);
+      color: #ff6666;
       text-align: center;
       padding: 3rem 1rem;
     }
@@ -36,7 +37,7 @@
     header p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
-      color: #b8ffdb;
+      color: #ffcccc;
     }
 
     section {
@@ -48,8 +49,8 @@
     h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
-      color: #00ff88;
-      border-left: 4px solid #00ff88;
+      color: #ff6666;
+      border-left: 4px solid #ff6666;
       padding-left: 10px;
     }
 
@@ -63,14 +64,14 @@
       background: #1a1a1a;
       padding: 1.5rem;
       border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 255, 136, 0.1);
+      box-shadow: 0 6px 18px rgba(255, 102, 102, 0.1);
       flex: 1 1 280px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .project-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+      box-shadow: 0 8px 24px rgba(255, 102, 102, 0.3);
     }
 
     .project-card h3 {
@@ -85,7 +86,7 @@
     }
 
     .project-card a {
-      color: #00ff88;
+      color: #ff6666;
       font-weight: bold;
       text-decoration: none;
     }
@@ -103,37 +104,36 @@
       max-width: 100%;
       border-radius: 12px;
     }
+
     .topnav {
-  position: fixed;
-  top: 20px;
-  right: 40px;
-  z-index: 1000;
-  display: flex;
-  gap: 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
+      position: fixed;
+      top: 20px;
+      right: 40px;
+      z-index: 1000;
+      display: flex;
+      gap: 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
 
-.topnav a {
-  color: #00ff88;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
+    .topnav a {
+      color: #ff6666;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
 
-.topnav a:hover {
-  color: white;
-}
+    .topnav a:hover {
+      color: #ffffff;
+    }
 
-@media (max-width: 600px) {
-  .topnav {
-    top: 10px;
-    right: 20px;
-    font-size: 0.9rem;
-    gap: 1rem;
-  }
-}
-
-    
+    @media (max-width: 600px) {
+      .topnav {
+        top: 10px;
+        right: 20px;
+        font-size: 0.9rem;
+        gap: 1rem;
+      }
+    }
 
     footer {
       text-align: center;
@@ -165,27 +165,16 @@
 </head>
 
 <body>
-    <nav class="topnav">
-  <a href="#">Home</a>
-  <a href="#projects">Projects</a>
-  <a href="https://github.com/sankarlmao">GitHub</a>
-</nav>
-
+  <nav class="topnav">
+    <a href="#">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="https://github.com/sankarlmao" target="_blank">GitHub</a>
+  </nav>
 
   <header>
     <h1>Sankar B</h1>
     <p>Cybersecurity & CSE Student · Developer · Builder</p>
   </header>
-  <div class="container">
-  
-  <div class="main-content">
-    
-  </div>
-
- 
-
-</div>
-
 
   <section id="projects">
     <h2>Projects</h2>
@@ -210,19 +199,30 @@
         <p>Monitors and analyzes packet-level traffic on a LAN, built using Scapy and Python GUI frameworks.</p>
         <a href="https://github.com/sankarlmao/network-traffic-analyzer" target="_blank">View on GitHub</a>
       </div>
+      <div class="project-card">
+        <h3>CGEN</h3>
+        <p>Description for CGEN project , A simple Ollama based AI with a very basic GUI for programming (very basic tool).</p>
+        <a href="https://github.com/sankarlmao/CGEN.portable-" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <h3>CleanFolder</h3>
+        <p>Description for CleanFolder, A tool that can be used for automatically sorting a folder .</p>
+        <a href="https://github.com/sankarlmao/CleanFolder" target="_blank">View on GitHub</a>
+      </div>
+      <!-- You can add more project-card blocks similarly -->
     </div>
   </section>
 
   <div class="github-graph">
     <h2>GitHub Activity</h2>
     <div class="calendar-graph">
-      <img src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&bg_color=0f0f0f&color=00ff88&line=00ff88&point=ffffff&area=true&hide_border=true" alt="GitHub Contribution Graph" />
+      <img src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&bg_color=0f0f0f&color=ff6666&line=ff6666&point=ffffff&area=true&hide_border=true" alt="GitHub Contribution Graph" />
     </div>
   </div>
 
   <footer>
-    <p>© 2025 Sankar Lmao. All rights reserved.</p>
+    <p>© 2025 Sankar. All rights reserved.</p>
+    <p>Linkdin:<a href="https://www.linkedin.com/in/sankarcy" target="_blank">LinkedIn</a><p>
   </footer>
-
 </body>
 </html>
