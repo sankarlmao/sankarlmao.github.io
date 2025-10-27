@@ -22,14 +22,14 @@
       scroll-behavior: smooth;
     }
 
-    #particles-js {
+    /* Aurora Canvas */
+    #aurora-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      background: radial-gradient(circle at top, #050505, #000);
+      z-index: -2;
     }
 
     /* HEADER */
@@ -223,7 +223,7 @@
 </head>
 <body>
 
-  <div id="particles-js"></div>
+  <canvas id="aurora-bg"></canvas>
 
   <header>
     <h1>Sankar's Portfolio</h1>
@@ -246,7 +246,7 @@
       <div class="repo-card"><h3>🕓 GDrive Timestamp Logger</h3><p>Monitor Google Drive file changes with API automation.</p><a class="repo-link" href="https://github.com/sankarlmao/GDrive-Timestamp-Logger">View Repo →</a></div>
       <div class="repo-card"><h3>🧠 Network Traffic Analyzer</h3><p>Network-wide vulnerability scanner using Scapy and Nmap.</p><a class="repo-link" href="https://github.com/sankarlmao/network-traffic-analyzer">View Repo →</a></div>
       <div class="repo-card"><h3>🔐 USB Reverse Shell</h3><p>Ethical reverse shell demo using USB Rubber Ducky.</p><a class="repo-link" href="https://github.com/sankarlmao/reverse-shell-ducky">View Repo →</a></div>
-      <div class="repo-card"><h3>🚌 nXtstop - Bus Tracker</h3><p>Real-time public transport tracker for Kerala.</p><a class="repo-link" href="https://github.com/sankarlmao/nXtstop">View Repo →</a></div>
+      <div class="repo-card"><h3>🤖 All-AI</h3><p>A multi-AI toolkit for automation, chatbots, and experiments.</p><a class="repo-link" href="https://github.com/sankarlmao/All-AI">View Repo →</a></div>
       <div class="repo-card"><h3>🦆 The Yawn Detector</h3><p>Fun AI project detecting yawns via OpenCV.</p><a class="repo-link" href="https://github.com/sankarlmao/The-Yawn-Detector">View Repo →</a></div>
       <div class="repo-card"><h3>🧰 Arch-Dotfiles</h3><p>Personal Arch Linux configuration with rice and scripts.</p><a class="repo-link" href="https://github.com/sankarlmao/Arch-Dotfiles">View Repo →</a></div>
       <div class="repo-card"><h3>🧹 CleanFolder</h3><p>Utility to auto-organize your files by type and date.</p><a class="repo-link" href="https://github.com/sankarlmao/CleanFolder">View Repo →</a></div>
@@ -271,25 +271,114 @@
 
   <button class="download-btn" onclick="window.open('Sankar_CV.pdf', '_blank')">⬇ Download CV</button>
 
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <!-- 🌌 Aurora Energy Flow + Mouse Trail -->
   <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {"value": 90, "density": {"enable": true, "value_area": 800}},
-        "color": {"value": "#00ffb3"},
-        "shape": {"type": "circle"},
-        "opacity": {"value": 0.5, "random": true},
-        "size": {"value": 3, "random": true},
-        "line_linked": {"enable": true, "distance": 150, "color": "#00ffb3", "opacity": 0.3, "width": 1},
-        "move": {"enable": true, "speed": 1.2, "direction": "none", "out_mode": "out"}
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {"onhover": {"enable": true, "mode": "repulse"}, "onclick": {"enable": true, "mode": "push"}, "resize": true},
-        "modes": {"repulse": {"distance": 100, "duration": 0.4}}
-      },
-      "retina_detect": true
+    const canvas = document.getElementById("aurora-bg");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let mouseTrail = [];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor(x, y, size, hue) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.hue = hue;
+        this.alpha = Math.random() * 0.5 + 0.3;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    function initAurora() {
+      particles = [];
+      for (let i = 0; i < 150; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 2 + 1;
+        const hue = 120 + Math.random() * 60; // Green-Gold
+        particles.push(new Particle(x, y, size, hue));
+      }
+    }
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            const opacity = 1 - dist / 120;
+            ctx.strokeStyle = `hsla(${(particles[i].hue + particles[j].hue) / 2}, 100%, 60%, ${opacity * 0.15})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function drawMouseTrail() {
+      for (let i = 0; i < mouseTrail.length; i++) {
+        const t = mouseTrail[i];
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${t.hue}, 100%, 70%, ${t.alpha})`;
+        ctx.fill();
+        t.alpha -= 0.02;
+        t.size *= 0.96;
+      }
+      mouseTrail = mouseTrail.filter(t => t.alpha > 0);
+    }
+
+    function animate() {
+      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      drawConnections();
+      drawMouseTrail();
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("mousemove", e => {
+      for (let i = 0; i < 3; i++) {
+        mouseTrail.push({
+          x: e.x + (Math.random() - 0.5) * 10,
+          y: e.y + (Math.random() - 0.5) * 10,
+          size: Math.random() * 6 + 2,
+          hue: 100 + Math.random() * 80,
+          alpha: 1
+        });
+      }
     });
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initAurora();
+    });
+
+    initAurora();
+    animate();
   </script>
+
 </body>
 </html>
