@@ -22,7 +22,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Aurora Canvas */
     #aurora-bg {
       position: fixed;
       top: 0;
@@ -32,7 +31,6 @@
       z-index: -2;
     }
 
-    /* HEADER */
     header {
       width: 100%;
       display: flex;
@@ -66,7 +64,6 @@
       text-shadow: 0 0 10px #00ffe1;
     }
 
-    /* DOWNLOAD BUTTON */
     .download-btn {
       position: fixed;
       bottom: 40px;
@@ -271,12 +268,16 @@
 
   <button class="download-btn" onclick="window.open('Sankar_CV.pdf', '_blank')">⬇ Download CV</button>
 
-  <!-- 🌌 Aurora Energy Flow + Mouse Trail -->
+  <!-- 🌌 Interactive Aurora -->
   <script>
     const canvas = document.getElementById("aurora-bg");
     const ctx = canvas.getContext("2d");
     let particles = [];
     let mouseTrail = [];
+    let shootingParticles = [];
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let scrollFactor = 0;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -291,8 +292,8 @@
         this.vy = (Math.random() - 0.5) * 0.4;
       }
       update() {
-        this.x += this.vx;
-        this.y += this.vy;
+        this.x += this.vx + (mouseX - this.x) * 0.00005;
+        this.y += this.vy + (mouseY - this.y) * 0.00005;
         if (this.x < 0) this.x = canvas.width;
         if (this.x > canvas.width) this.x = 0;
         if (this.y < 0) this.y = canvas.height;
@@ -301,6 +302,28 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${this.hue}, 100%, ${60 + scrollFactor * 20}%, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    class ShootingParticle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height / 2;
+        this.vx = Math.random() * 3 + 2;
+        this.vy = Math.random() * 1 - 0.5;
+        this.alpha = 1;
+        this.hue = 100 + Math.random() * 80;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.02;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, ${this.alpha})`;
         ctx.fill();
       }
@@ -312,7 +335,7 @@
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         const size = Math.random() * 2 + 1;
-        const hue = 120 + Math.random() * 60; // Green-Gold
+        const hue = 120 + Math.random() * 60;
         particles.push(new Particle(x, y, size, hue));
       }
     }
@@ -352,13 +375,24 @@
     function animate() {
       ctx.fillStyle = "rgba(0,0,0,0.08)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       particles.forEach(p => { p.update(); p.draw(); });
       drawConnections();
       drawMouseTrail();
+
+      // Shooting Particles
+      if (Math.random() < 0.03) shootingParticles.push(new ShootingParticle());
+      shootingParticles.forEach((sp, index) => {
+        sp.update(); sp.draw();
+        if (sp.alpha <= 0) shootingParticles.splice(index, 1);
+      });
+
       requestAnimationFrame(animate);
     }
 
     window.addEventListener("mousemove", e => {
+      mouseX = e.x;
+      mouseY = e.y;
       for (let i = 0; i < 3; i++) {
         mouseTrail.push({
           x: e.x + (Math.random() - 0.5) * 10,
@@ -368,6 +402,10 @@
           alpha: 1
         });
       }
+    });
+
+    window.addEventListener("scroll", () => {
+      scrollFactor = Math.min(1, window.scrollY / 800);
     });
 
     window.addEventListener("resize", () => {
