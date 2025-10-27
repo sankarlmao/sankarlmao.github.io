@@ -22,6 +22,63 @@
       scroll-behavior: smooth;
     }
 
+    /* ===========================
+       🌌 DIGITAL MIRROR BOOT ANIMATION
+       =========================== */
+    #boot-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #001a0f 0%, #000 90%);
+      color: #00ffb3;
+      font-size: 1.1em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      overflow: hidden;
+    }
+
+    .boot-text {
+      text-align: left;
+      width: 80%;
+      max-width: 700px;
+      line-height: 1.4em;
+      white-space: pre;
+      animation: typeIn 3s steps(30) 0.5s forwards;
+      opacity: 0;
+    }
+
+    @keyframes typeIn {
+      from { opacity: 1; }
+      to { opacity: 1; }
+    }
+
+    .boot-flicker {
+      animation: flicker 0.1s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    #boot-screen.fade-out {
+      animation: fadeOutBoot 1.5s ease forwards;
+    }
+
+    @keyframes fadeOutBoot {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* ===========================
+       EXISTING STYLES BELOW
+       =========================== */
     #aurora-bg {
       position: fixed;
       top: 0;
@@ -164,26 +221,6 @@
       font-weight: bold;
     }
 
-    section#contrib {
-      text-align: center;
-      padding: 80px 5%;
-    }
-
-    section#contrib h2 {
-      color: #00ffb3;
-      margin-bottom: 20px;
-      text-shadow: 0 0 15px #00ffb3;
-    }
-
-    section#contrib img {
-      border-radius: 10px;
-      border: 1px solid rgba(0, 255, 179, 0.3);
-      box-shadow: 0 0 25px rgba(0, 255, 179, 0.1);
-      width: 90%;
-      max-width: 900px;
-      margin-bottom: 30px;
-    }
-
     footer {
       margin-top: 100px;
       padding: 30px;
@@ -220,6 +257,11 @@
 </head>
 <body>
 
+  <!-- 🧠 DIGITAL MIRROR BOOT SEQUENCE -->
+  <div id="boot-screen">
+    <div class="boot-text" id="boot-text"></div>
+  </div>
+
   <canvas id="aurora-bg"></canvas>
 
   <header>
@@ -251,14 +293,6 @@
     </div>
   </section>
 
-  <section id="contrib">
-    <h2>💻 GitHub Contributions</h2>
-    <div class="calendar-graph">
-      <img src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&bg_color=000000&color=00ffb3&line=00ffb3&point=ffffff&area=true&hide_border=true" alt="GitHub Contribution Graph" />
-    </div>
-    <img src="https://ghchart.rshah.org/00ffb3/sankarlmao" alt="Sankar's GitHub Contribution Graph">
-  </section>
-
   <footer>
     <p>📧 Email: <a href="mailto:imsankarlmao@gmail.com">imsankarlmao@gmail.com</a></p>
     <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/sankarcy/" target="_blank">linkedin.com/in/sankarcy</a></p>
@@ -268,7 +302,42 @@
 
   <button class="download-btn" onclick="window.open('Sankar_CV.pdf', '_blank')">⬇ Download CV</button>
 
-  <!-- 🌌 Interactive Aurora -->
+  <!-- 💻 Digital Mirror Boot Sequence Script -->
+  <script>
+    const bootLines = [
+      "Initializing SankarOS v1.0...",
+      "Loading system modules... [OK]",
+      "Connecting to Aurora Interface... [OK]",
+      "Fetching GitHub Repositories... [OK]",
+      "Optimizing neural processors... [OK]",
+      "Activating Cyber Mode... [OK]",
+      "System Boot Complete. Welcome, Sankar."
+    ];
+
+    const bootTextEl = document.getElementById('boot-text');
+    let i = 0;
+
+    function typeBootText() {
+      if (i < bootLines.length) {
+        const line = document.createElement('div');
+        line.textContent = "> " + bootLines[i];
+        bootTextEl.appendChild(line);
+        bootTextEl.classList.add('boot-flicker');
+        i++;
+        setTimeout(typeBootText, 400);
+      } else {
+        setTimeout(() => {
+          document.getElementById('boot-screen').classList.add('fade-out');
+        }, 1000);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(typeBootText, 600);
+    });
+  </script>
+
+  <!-- 🌌 Interactive Aurora Script (unchanged) -->
   <script>
     const canvas = document.getElementById("aurora-bg");
     const ctx = canvas.getContext("2d");
@@ -380,7 +449,6 @@
       drawConnections();
       drawMouseTrail();
 
-      // Shooting Particles
       if (Math.random() < 0.03) shootingParticles.push(new ShootingParticle());
       shootingParticles.forEach((sp, index) => {
         sp.update(); sp.draw();
