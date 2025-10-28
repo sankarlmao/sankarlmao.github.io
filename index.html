@@ -77,7 +77,7 @@
     }
 
     /* ===========================
-       EXISTING STYLES BELOW
+       INTERACTIVE BACKGROUND
        =========================== */
     #aurora-bg {
       position: fixed;
@@ -88,6 +88,19 @@
       z-index: -2;
     }
 
+    #particle-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ===========================
+       HEADER & CONTENT
+       =========================== */
     header {
       width: 100%;
       display: flex;
@@ -222,7 +235,7 @@
     }
 
     /* ===========================
-       📈 GITHUB ACTIVITY SECTION
+       GITHUB ACTIVITY SECTION
        =========================== */
     .github-graph {
       margin-top: 120px;
@@ -294,6 +307,7 @@
   </div>
 
   <canvas id="aurora-bg"></canvas>
+  <canvas id="particle-bg"></canvas>
 
   <header>
     <h1>Sankar's Portfolio</h1>
@@ -309,10 +323,10 @@
     <p>Cybersecurity & CSE Student | Developer | Cybersecurity Enthusiast 🚀</p>
   </section>
 
+  <!-- 🧩 PROJECTS -->
   <section id="projects">
     <h2>🚀 Projects</h2>
     <div class="repo-container">
-      <!-- Existing project cards -->
       <div class="repo-card"><h3>🔊 VHF-UHF SDR Monitoring Station</h3><p>SDR system for VHF, UHF, and DMR decoding.</p><a class="repo-link" href="https://github.com/sankarlmao/VHF-UHF-SDR-Monitoring-Station">View Repo →</a></div>
       <div class="repo-card"><h3>🕓 GDrive Timestamp Logger</h3><p>Monitor Google Drive file changes with API automation.</p><a class="repo-link" href="https://github.com/sankarlmao/GDrive-Timestamp-Logger">View Repo →</a></div>
       <div class="repo-card"><h3>🧠 Network Traffic Analyzer</h3><p>Network-wide vulnerability scanner using Scapy and Nmap.</p><a class="repo-link" href="https://github.com/sankarlmao/network-traffic-analyzer">View Repo →</a></div>
@@ -325,7 +339,7 @@
     </div>
   </section>
 
-  <!-- 📈 GitHub Activity Section -->
+  <!-- 📊 GitHub Graph -->
   <div class="github-graph" id="github-graph">
     <h2>📊 GitHub Activity</h2>
     <div class="calendar-graph">
@@ -342,10 +356,10 @@
 
   <a href="sankar-resume.pdf" download class="download-btn">⬇ Download CV</a>
 
-  <!-- 💻 Boot Sequence Script -->
+  <!-- 💻 Boot Sequence -->
   <script>
     const bootLines = [
-      "Initializing 'Your realy reading this' [NixOS] v1.0...",
+      "Initializing 'Your really reading this' [NixOS] v1.0...",
       "Loading system modules... [OK]",
       "Connecting to Aurora Interface... [OK]",
       "Fetching GitHub Repositories... [OK]",
@@ -377,10 +391,61 @@
     });
   </script>
 
-  <!-- 🌌 Aurora Animation (unchanged) -->
+  <!-- 🌀 Interactive Particle Depth Background -->
   <script>
-    /* existing aurora animation code remains unchanged */
-  </script>
+    const canvas = document.getElementById('particle-bg');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
 
+    const particles = [];
+    const numParticles = 80;
+
+    for (let i = 0; i < numParticles; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        z: Math.random() * 3 + 0.5,
+        size: Math.random() * 2 + 0.5,
+        color: `rgba(0,255,200,${Math.random() * 0.8})`
+      });
+    }
+
+    let mouseX = width / 2;
+    let mouseY = height / 2;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      for (let p of particles) {
+        const dx = (mouseX - width / 2) * 0.001 * p.z;
+        const dy = (mouseY - height / 2) * 0.001 * p.z;
+        p.x += dx;
+        p.y += dy;
+
+        if (p.x > width) p.x = 0;
+        if (p.x < 0) p.x = width;
+        if (p.y > height) p.y = 0;
+        if (p.y < 0) p.y = height;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    animate();
+  </script>
 </body>
 </html>
