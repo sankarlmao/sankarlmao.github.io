@@ -1,478 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sankar's Portfolio</title>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Share Tech Mono', monospace;
-      color: #d4ffdb;
-      background: radial-gradient(circle at top, #050505, #000);
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-
-    /* ===========================
-       🌌 DIGITAL MIRROR BOOT ANIMATION
-       =========================== */
-    #boot-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, #001a0f 0%, #000 90%);
-      color: #00ffb3;
-      font-size: 1.1em;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      overflow: hidden;
-    }
-
-    .boot-text {
-      text-align: left;
-      width: 80%;
-      max-width: 700px;
-      line-height: 1.4em;
-      white-space: pre;
-      animation: typeIn 3s steps(30) 0.5s forwards;
-      opacity: 0;
-    }
-
-    @keyframes typeIn {
-      from { opacity: 1; }
-      to { opacity: 1; }
-    }
-
-    .boot-flicker {
-      animation: flicker 0.1s infinite alternate;
-    }
-
-    @keyframes flicker {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
-
-    #boot-screen.fade-out {
-      animation: fadeOutBoot 1.5s ease forwards;
-    }
-
-    @keyframes fadeOutBoot {
-      from { opacity: 1; }
-      to { opacity: 0; visibility: hidden; }
-    }
-
-    /* ===========================
-       INTERACTIVE BACKGROUND
-       =========================== */
-    #aurora-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-    }
-
-    #particle-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    /* ===========================
-       HEADER & CONTENT
-       =========================== */
-    header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 60px;
-      position: fixed;
-      top: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(0, 255, 179, 0.3);
-    }
-
-    header h1 {
-      color: #00ffb3;
-      font-size: 1.8em;
-      text-shadow: 0 0 15px #00ffb3;
-    }
-
-    nav a {
-      color: #b3ffd7;
-      margin-left: 25px;
-      text-decoration: none;
-      transition: 0.3s;
-      font-size: 1em;
-    }
-
-    nav a:hover {
-      color: #00ffe1;
-      text-shadow: 0 0 10px #00ffe1;
-    }
-
-    .download-btn {
-      position: fixed;
-      bottom: 40px;
-      right: 40px;
-      padding: 12px 24px;
-      font-size: 1em;
-      background: linear-gradient(90deg, #00ffb3, #00ffe1);
-      color: #000;
-      border: none;
-      border-radius: 30px;
-      box-shadow: 0 0 20px rgba(0, 255, 179, 0.6);
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      z-index: 1001;
-    }
-
-    .download-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 35px rgba(0, 255, 200, 0.8);
-    }
-
-    section.hero {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
-      padding-top: 100px;
-    }
-
-    .hero h2 {
-      font-size: 2.6em;
-      color: #00ffb3;
-      text-shadow: 0 0 25px #00ffb3;
-      animation: fadeInDown 1.5s ease;
-    }
-
-    .hero p {
-      color: #b3ffd7;
-      font-size: 1.1em;
-      margin-top: 15px;
-      animation: fadeInUp 1.5s ease;
-    }
-
-    /* Typed.js cursor styling */
-    .typed-cursor {
-      font-weight: 400;
-      font-size: 1.2em;
-      color: #00ffe1;
-      animation: blink 0.7s infinite;
-    }
-
-    @keyframes blink {
-      0%, 50%, 100% { opacity: 1; }
-      25%, 75% { opacity: 0; }
-    }
-
-    section#projects {
-      margin-top: 100px;
-      padding: 80px 5%;
-      text-align: center;
-    }
-
-    section#projects h2 {
-      font-size: 2em;
-      color: #00ffe1;
-      text-shadow: 0 0 15px #00ffe1;
-      margin-bottom: 40px;
-    }
-
-    .repo-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: auto;
-      animation: fadeInUp 1.5s ease;
-    }
-
-    .repo-card {
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(0, 255, 179, 0.4);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 0 20px rgba(0, 255, 179, 0.1);
-      transition: all 0.3s ease;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .repo-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 0 40px rgba(0, 255, 179, 0.5);
-    }
-
-    .repo-card h3 {
-      color: #00ffb3;
-      font-size: 1.3em;
-    }
-
-    .repo-card p {
-      font-size: 0.95em;
-      color: #b3ffd7;
-      line-height: 1.6em;
-    }
-
-    a.repo-link {
-      text-decoration: none;
-      color: #00ffe1;
-      font-weight: bold;
-    }
-
-    .github-graph {
-      margin-top: 120px;
-      padding: 60px 5%;
-      text-align: center;
-      animation: fadeInUp 1.5s ease;
-    }
-
-    .github-graph h2 {
-      font-size: 2em;
-      color: #00ffe1;
-      text-shadow: 0 0 15px #00ffe1;
-      margin-bottom: 40px;
-    }
-
-    .calendar-graph img {
-      width: 100%;
-      max-width: 1000px;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 255, 179, 0.4);
-      box-shadow: 0 0 30px rgba(0, 255, 179, 0.15);
-      transition: 0.3s ease;
-    }
-
-    .calendar-graph img:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 50px rgba(0, 255, 179, 0.4);
-    }
-
-    footer {
-      margin-top: 100px;
-      padding: 30px;
-      text-align: center;
-      color: #777;
-      border-top: 1px solid rgba(0, 255, 179, 0.2);
-      font-size: 0.95em;
-    }
-
-    footer a {
-      color: #00ffe1;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    footer a:hover {
-      color: #00ffb3;
-      text-shadow: 0 0 10px #00ffb3;
-    }
-
-    @keyframes fadeInUp {
-      from {opacity: 0; transform: translateY(30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes fadeInDown {
-      from {opacity: 0; transform: translateY(-30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes float {
-      0%, 100% {transform: translateY(0);}
-      50% {transform: translateY(-10px);}
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sankar B | Cybersecurity Engineer & Developer</title>
+  <meta name="description"
+    content="Portfolio of Sankar B — CSE & Cybersecurity student at MITS, Kochi. Building secure tools, SDR monitoring systems, and open-source projects.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <!-- Cursor glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-  <!-- 🧠 DIGITAL MIRROR BOOT SEQUENCE -->
-  <div id="boot-screen">
-    <div class="boot-text" id="boot-text"></div>
-  </div>
+  <!-- Particle canvas -->
+  <canvas id="particles"></canvas>
 
-  <canvas id="aurora-bg"></canvas>
-  <canvas id="particle-bg"></canvas>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">
+      <span class="logo-bracket">&lt;</span>Sankar<span class="logo-bracket">/&gt;</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#education" class="nav-link">Education</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-  <header>
-    <h1>Sankar's Portfolio</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#github-graph">GitHub</a>
-    </nav>
-  </header>
-
-  <section id="home" class="hero">
-    <h2>Hi, I'm Sankar </h2>
-    <p><span id="typed-text"></span></p>
-  </section>
-
-  <!-- 🧩 PROJECTS -->
-  <section id="projects">
-    <h2>🚀 Projects</h2>
-    <div class="repo-container">
-      <div class="repo-card"><h3>🔊 VHF-UHF SDR Monitoring Station</h3><p>SDR system for VHF, UHF, and DMR decoding.</p><a class="repo-link" href="https://github.com/sankarlmao/VHF-UHF-SDR-Monitoring-Station">View Repo →</a></div>
-      <div class="repo-card"><h3>🕓 GDrive Timestamp Logger</h3><p>Monitor Google Drive file changes with API automation.</p><a class="repo-link" href="https://github.com/sankarlmao/GDrive-Timestamp-Logger">View Repo →</a></div>
-      <div class="repo-card"><h3>🧠 Network Traffic Analyzer</h3><p>Network-wide vulnerability scanner using Scapy and Nmap.</p><a class="repo-link" href="https://github.com/sankarlmao/network-traffic-analyzer">View Repo →</a></div>
-      <div class="repo-card"><h3>🔐 USB Reverse Shell</h3><p>Ethical reverse shell demo using USB Rubber Ducky.</p><a class="repo-link" href="https://github.com/sankarlmao/reverse-shell-ducky">View Repo →</a></div>
-      <div class="repo-card"><h3>🤖 All-AI</h3><p>A multi-AI toolkit for automation, chatbots, and experiments.</p><a class="repo-link" href="https://github.com/sankarlmao/All-AI">View Repo →</a></div>
-      <div class="repo-card"><h3>🦆 The Yawn Detector</h3><p>Fun AI project detecting yawns via OpenCV.</p><a class="repo-link" href="https://github.com/sankarlmao/The-Yawn-Detector">View Repo →</a></div>
-      <div class="repo-card"><h3>🧰 Arch-Dotfiles</h3><p>Personal Arch Linux configuration with rice and scripts.</p><a class="repo-link" href="https://github.com/sankarlmao/Arch-Dotfiles">View Repo →</a></div>
-      <div class="repo-card"><h3>🧹 CleanFolder</h3><p>Utility to auto-organize your files by type and date.</p><a class="repo-link" href="https://github.com/sankarlmao/CleanFolder">View Repo →</a></div>
-      <div class="repo-card"><h3>⚙️ CGEN</h3><p>Cyber generator tool for generating payloads and patterns.</p><a class="repo-link" href="https://github.com/sankarlmao/CGEN">View Repo →</a></div>
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="badge-dot"></span>
+        Open for Opportunities
+      </div>
+      <h1 class="hero-title reveal">
+        <span class="hero-greeting">Hi, I'm</span>
+        <span class="hero-name">Sankar B</span>
+      </h1>
+      <div class="hero-tagline reveal">
+        <span class="tagline-static">I </span>
+        <span class="typewriter" id="typewriter"></span>
+        <span class="typewriter-cursor">|</span>
+      </div>
+      <p class="hero-desc reveal">
+        CSE & Cybersecurity student at <strong>MITS, Kochi</strong> — passionate about building secure tools,
+        exploring networks, and turning refined laziness into efficiency.
+      </p>
+      <div class="hero-stats reveal">
+        <div class="stat">
+          <span class="stat-number" data-count="42">0</span>
+          <span class="stat-label">Repositories</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="21">0</span>
+          <span class="stat-label">Followers</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="428">0</span>
+          <span class="stat-label">Contributions</span>
+        </div>
+      </div>
+      <div class="hero-cta reveal">
+        <a href="#projects" class="btn btn-primary">
+          <span>View My Work</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
+        </a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+      <div class="hero-socials reveal">
+        <a href="https://github.com/sankarlmao" target="_blank" rel="noopener" class="social-link" title="GitHub">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/sankarcy/" target="_blank" rel="noopener" class="social-link"
+          title="LinkedIn">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+        </a>
+        <a href="mailto:imsankarlmao@gmail.com" class="social-link" title="Email">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="profile-ring">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <img src="https://avatars.githubusercontent.com/u/181142203?v=4" alt="Sankar B" class="profile-img"
+          loading="eager">
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- 📊 GitHub Graph -->
-  <div class="github-graph" id="github-graph">
-    <h2>📊 GitHub Activity</h2>
-    <div class="calendar-graph">
-      <img src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&bg_color=0f0f0f&color=00ff88&line=00ff88&point=ffffff&area=true&hide_border=true" alt="GitHub Contribution Graph" />
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">01</span>
+        <h2 class="section-title">About Me</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p class="about-lead">
+            I'm a <strong>Computer Science & Cybersecurity Engineering</strong> student who believes the best defense
+            is a good offense — in security, that means understanding attacks before building shields.
+          </p>
+          <p>
+            As a Linux enthusiast running <strong>Arch/NixOS</strong>, I spend my time building security tools,
+            monitoring radio frequencies with SDR, and automating everything I can. I recently secured
+            <strong>3rd place at TECHLETICS 4.0 CTF</strong> competition and completed a cybercrime investigation
+            internship at <strong>CCPS Alappuzha</strong>.
+          </p>
+          <p>
+            When I'm not breaking (or fixing) things, I contribute to open source — with
+            <strong>42 public repositories</strong> and counting. I believe in "refined laziness aka efficiency" —
+            if a task can be automated, it should be.
+          </p>
+          <div class="about-highlights">
+            <div class="highlight">
+              <div class="highlight-icon">🔒</div>
+              <div>
+                <strong>Security First</strong>
+                <span>Pentesting, CTFs, Cybercrime Investigation</span>
+              </div>
+            </div>
+            <div class="highlight">
+              <div class="highlight-icon">🐧</div>
+              <div>
+                <strong>Linux Power User</strong>
+                <span>Arch & NixOS with custom dotfiles</span>
+              </div>
+            </div>
+            <div class="highlight">
+              <div class="highlight-icon">📡</div>
+              <div>
+                <strong>Radio Frequencies</strong>
+                <span>VHF/UHF SDR Monitoring & Decoding</span>
+              </div>
+            </div>
+            <div class="highlight">
+              <div class="highlight-icon">⚡</div>
+              <div>
+                <strong>Tool Builder</strong>
+                <span>Automating workflows with Python & Bash</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-terminal reveal">
+          <div class="terminal">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="terminal-title">sankar@arch ~</span>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+              <div class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">whoami</span></div>
+              <div class="term-output">Sankar B — Cybersecurity Learner & Tech Geek</div>
+              <div class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">cat /etc/location</span>
+              </div>
+              <div class="term-output">Kochi, Kerala, India 🇮🇳</div>
+              <div class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">uname -a</span></div>
+              <div class="term-output">Arch Linux x86_64 | NixOS Enthusiast</div>
+              <div class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">ls ~/skills/</span></div>
+              <div class="term-output">python/ networking/ pentesting/ sdr/ flask/ linux/ scapy/ nmap/</div>
+              <div class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">echo $STATUS</span></div>
+              <div class="term-output">🟢 Open for Internships & Collaborations</div>
+              <div class="term-line"><span class="term-prompt">$</span> <span class="term-cursor">█</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <footer>
-    <p>📧 Email: <a href="mailto:imsankarlmao@gmail.com">imsankarlmao@gmail.com</a></p>
-    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/sankarcy/" target="_blank">linkedin.com/in/sankarcy</a></p>
-    <p>🔗 GitHub: <a href="https://github.com/sankarlmao" target="_blank">github.com/sankarlmao</a></p>
-    <p>© 2025 Sankar</p>
+  <!-- Experience Section -->
+  <section class="section section-alt" id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">02</span>
+        <h2 class="section-title">Experience</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line-v"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-date">Dec 2025 — Jan 2026</div>
+            <h3 class="timeline-role">Cybercrime Investigation Intern</h3>
+            <h4 class="timeline-company">Cyber Crime Police Station (CCPS), Alappuzha</h4>
+            <p class="timeline-location">📍 Alappuzha, Kerala, India · On-site</p>
+            <ul class="timeline-details">
+              <li>Worked on cybercrime investigation workflows and digital forensics</li>
+              <li>Gained hands-on experience with Cyber Threat Intelligence (CTI)</li>
+              <li>Analyzed real-world cybercrime cases and evidence handling procedures</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Cybercrime Investigation</span>
+              <span class="tag">CTI</span>
+              <span class="tag">Digital Forensics</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line-v"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-date">2025</div>
+            <h3 class="timeline-role">3rd Place — TECHLETICS 4.0 CTF</h3>
+            <h4 class="timeline-company">Capture The Flag Competition</h4>
+            <ul class="timeline-details">
+              <li>Competed in a multi-round CTF covering web exploitation, forensics, and cryptography</li>
+              <li>Demonstrated strong skills in privilege escalation and network analysis</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">CTF</span>
+              <span class="tag">Web Exploitation</span>
+              <span class="tag">Forensics</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-marker">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-date">Ongoing</div>
+            <h3 class="timeline-role">Open Source Contributor</h3>
+            <h4 class="timeline-company">GitHub — @sankarlmao</h4>
+            <ul class="timeline-details">
+              <li>Maintaining 42+ public repositories spanning security tools, automation, and CLIs</li>
+              <li>428+ contributions in the last year across personal and collaborative projects</li>
+              <li>Building tools used by other students and the security community</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Open Source</span>
+              <span class="tag">Python</span>
+              <span class="tag">Security Tools</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">03</span>
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+        <!-- Featured Project 1 -->
+        <div class="project-card project-featured reveal" id="projectSDR">
+          <div class="project-glow"></div>
+          <div class="project-header">
+            <div class="project-icon">📡</div>
+            <div class="project-links">
+              <a href="https://github.com/sankarlmao/VHF-UHF-DMR-SDR-Monitoring-Station" target="_blank" rel="noopener"
+                class="project-link-icon" title="View on GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">VHF/UHF SDR Monitoring Station</h3>
+          <p class="project-desc">A software-defined radio monitoring station for scanning VHF, UHF, and DMR
+            transmissions using RTL-SDR dongle, DSD decoder, and Python automation with real-time logging.</p>
+          <div class="project-tech">
+            <span>Python</span><span>RTL-SDR</span><span>DSD</span><span>Signal Processing</span>
+          </div>
+          <div class="project-stats">
+            <span>⭐ 2</span>
+          </div>
+        </div>
+
+        <!-- Featured Project 2 -->
+        <div class="project-card reveal">
+          <div class="project-glow"></div>
+          <div class="project-header">
+            <div class="project-icon">🖨️</div>
+            <div class="project-links">
+              <a href="https://github.com/sankarlmao/Mits-PRINT" target="_blank" rel="noopener"
+                class="project-link-icon" title="View on GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+              <a href="https://mits-print.vercel.app" target="_blank" rel="noopener" class="project-link-icon"
+                title="Live Demo">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">MITS PRINT</h3>
+          <p class="project-desc">A campus printing web app that simplifies document printing for students with file
+            upload, preview, and management capabilities.</p>
+          <div class="project-tech">
+            <span>JavaScript</span><span>Vercel</span><span>Web App</span>
+          </div>
+          <div class="project-stats">
+            <span>⭐ 4</span><span>🍴 1</span>
+          </div>
+        </div>
+
+        <!-- Featured Project 3 -->
+        <div class="project-card reveal">
+          <div class="project-glow"></div>
+          <div class="project-header">
+            <div class="project-icon">🗂️</div>
+            <div class="project-links">
+              <a href="https://github.com/sankarlmao/CleanFolder" target="_blank" rel="noopener"
+                class="project-link-icon" title="View on GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">CleanFolder</h3>
+          <p class="project-desc">Smart file organizer that automatically categorizes and sorts folders by type,
+            extension, or category. Lightweight, fast, and clutter-free.</p>
+          <div class="project-tech">
+            <span>Python</span><span>CLI</span><span>Automation</span>
+          </div>
+          <div class="project-stats">
+            <span>⭐ 2</span><span>🍴 1</span>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card reveal">
+          <div class="project-glow"></div>
+          <div class="project-header">
+            <div class="project-icon">⚙️</div>
+            <div class="project-links">
+              <a href="https://github.com/sankarlmao/CGen" target="_blank" rel="noopener" class="project-link-icon"
+                title="View on GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">CGen</h3>
+          <p class="project-desc">Offline C program generator that creates programs from prompts. Covers data structures
+            & core concepts — designed for learning & practice.</p>
+          <div class="project-tech">
+            <span>Python</span><span>C</span><span>Code Generation</span>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card reveal">
+          <div class="project-glow"></div>
+          <div class="project-header">
+            <div class="project-icon">🔎</div>
+            <div class="project-links">
+              <a href="https://github.com/sankarlmao" target="_blank" rel="noopener" class="project-link-icon"
+                title="View on GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">Vulnerability Scanner</h3>
+          <p class="project-desc">Network security scanner built with Nmap, Socket, and Scapy. Features a GUI interface
+            and PDF report export for professional assessments.</p>
+          <div class="project-tech">
+            <span>Python</span><span>Nmap</span><span>Scapy</span><span>GUI</span>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project-card reveal">
+          <div class="project-glow"></div>
+          <div class="project-header">
+            <div class="project-icon">🎯</div>
+            <div class="project-links">
+              <a href="https://github.com/sankarlmao/rootme-CTF" target="_blank" rel="noopener"
+                class="project-link-icon" title="View on GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">RootMe CTF</h3>
+          <p class="project-desc">Linux OVA-based Capture The Flag challenge designed for practicing privilege
+            escalation, enumeration, and system exploitation.</p>
+          <div class="project-tech">
+            <span>Python</span><span>Linux</span><span>CTF</span><span>Security</span>
+          </div>
+        </div>
+      </div>
+      <div class="projects-more reveal">
+        <a href="https://github.com/sankarlmao?tab=repositories" target="_blank" rel="noopener"
+          class="btn btn-secondary">
+          View All 42 Repositories
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section section-alt" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">04</span>
+        <h2 class="section-title">Skills & Tech Stack</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">🔐</span>
+            <h3>Cybersecurity</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item"><span class="skill-dot"></span>Penetration Testing</div>
+            <div class="skill-item"><span class="skill-dot"></span>Network Traffic Analysis</div>
+            <div class="skill-item"><span class="skill-dot"></span>Cyber Threat Intelligence</div>
+            <div class="skill-item"><span class="skill-dot"></span>Digital Forensics</div>
+            <div class="skill-item"><span class="skill-dot"></span>CTF Competitions</div>
+            <div class="skill-item"><span class="skill-dot"></span>USB Reverse Shells</div>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">💻</span>
+            <h3>Languages & Frameworks</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item"><span class="skill-dot"></span>Python</div>
+            <div class="skill-item"><span class="skill-dot"></span>C</div>
+            <div class="skill-item"><span class="skill-dot"></span>JavaScript</div>
+            <div class="skill-item"><span class="skill-dot"></span>HTML5 / CSS3</div>
+            <div class="skill-item"><span class="skill-dot"></span>Flask</div>
+            <div class="skill-item"><span class="skill-dot"></span>React (learning)</div>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">🛠️</span>
+            <h3>Tools & Platforms</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item"><span class="skill-dot"></span>Nmap</div>
+            <div class="skill-item"><span class="skill-dot"></span>Scapy</div>
+            <div class="skill-item"><span class="skill-dot"></span>Docker</div>
+            <div class="skill-item"><span class="skill-dot"></span>Git & GitHub</div>
+            <div class="skill-item"><span class="skill-dot"></span>OpenCV</div>
+            <div class="skill-item"><span class="skill-dot"></span>Wireshark</div>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="skill-category-icon">🐧</span>
+            <h3>Systems & Networking</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item"><span class="skill-dot"></span>Linux (Arch / NixOS)</div>
+            <div class="skill-item"><span class="skill-dot"></span>Networking Protocols</div>
+            <div class="skill-item"><span class="skill-dot"></span>SDR / RTL-SDR</div>
+            <div class="skill-item"><span class="skill-dot"></span>VHF/UHF Monitoring</div>
+            <div class="skill-item"><span class="skill-dot"></span>Shell Scripting</div>
+            <div class="skill-item"><span class="skill-dot"></span>System Administration</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section class="section" id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">05</span>
+        <h2 class="section-title">Education</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="education-card reveal">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-content">
+          <h3>Muthoot Institute of Technology and Science (MITS)</h3>
+          <p class="edu-degree">B.Tech in Computer Science & Engineering — Cybersecurity</p>
+          <p class="edu-date">2022 — Present (Expected 2026)</p>
+          <p class="edu-location">📍 Kochi, Kerala, India</p>
+          <div class="edu-highlights">
+            <span>🏆 3rd Place — TECHLETICS 4.0 CTF</span>
+            <span>🔒 Cybersecurity Specialization</span>
+            <span>💻 42+ Open Source Projects</span>
+          </div>
+        </div>
+      </div>
+      <div class="learning-section reveal">
+        <h3 class="learning-title">🌱 Currently Learning</h3>
+        <div class="learning-items">
+          <div class="learning-item">
+            <div class="learning-progress" style="--progress: 75%"></div>
+            <span>Advanced Network Security</span>
+          </div>
+          <div class="learning-item">
+            <div class="learning-progress" style="--progress: 60%"></div>
+            <span>Penetration Testing Workflows</span>
+          </div>
+          <div class="learning-item">
+            <div class="learning-progress" style="--progress: 40%"></div>
+            <span>Web Development (React)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub Activity Section -->
+  <section class="section section-alt" id="github-activity">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">06</span>
+        <h2 class="section-title">GitHub Activity</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="github-grid reveal">
+        <div class="github-card">
+          <img
+            src="https://github-readme-stats.vercel.app/api?username=sankarlmao&show_icons=true&theme=transparent&hide_border=true&title_color=6366f1&icon_color=818cf8&text_color=94a3b8&bg_color=00000000"
+            alt="GitHub Stats" loading="lazy">
+        </div>
+        <div class="github-card">
+          <img
+            src="https://github-readme-streak-stats.herokuapp.com?user=sankarlmao&theme=transparent&hide_border=true&ring=6366f1&fire=f472b6&currStreakLabel=6366f1&sideLabels=94a3b8&currStreakNum=e2e8f0&sideNums=e2e8f0&dates=64748b&stroke=1e293b"
+            alt="GitHub Streak" loading="lazy">
+        </div>
+        <div class="github-card github-card-full">
+          <img
+            src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&theme=react-dark&hide_border=true&bg_color=00000000&color=94a3b8&line=6366f1&point=f472b6&area=true&area_color=6366f1"
+            alt="Contribution Graph" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">07</span>
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-content reveal">
+        <p class="contact-desc">
+          I'm always open to discussing cybersecurity, new tools, open-source projects, or internship opportunities.
+          Feel free to drop a message!
+        </p>
+        <div class="contact-cards">
+          <a href="mailto:imsankarlmao@gmail.com" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <span class="contact-card-label">Email</span>
+            <span class="contact-card-value">imsankarlmao@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sankarcy/" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </div>
+            <span class="contact-card-label">LinkedIn</span>
+            <span class="contact-card-value">in/sankarcy</span>
+          </a>
+          <a href="https://github.com/sankarlmao" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+            </div>
+            <span class="contact-card-label">GitHub</span>
+            <span class="contact-card-value">@sankarlmao</span>
+          </a>
+        </div>
+        <a href="sankar-resume.pdf" class="btn btn-primary" download style="margin-top:2.5rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span>Download Resume</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-bracket">&lt;</span>Sankar<span class="logo-bracket">/&gt;</span>
+        </div>
+        <p class="footer-text">Designed & Built by Sankar B · © 2026</p>
+        <div class="footer-links">
+          <a href="https://github.com/sankarlmao" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/sankarcy/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:imsankarlmao@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
   </footer>
 
-  <a href="sankar-resume.pdf" download class="download-btn">⬇ Download CV</a>
-
-  <!-- 💻 Boot Sequence -->
-  <script>
-    const bootLines = [
-      "Initializing 'Your really reading this' [NixOS] v1.0...",
-      "Loading system modules... [OK]",
-      "Connecting to Aurora Interface... [OK]",
-      "Fetching GitHub Repositories... [OK]",
-      "Optimizing neural processors... [OK]",
-      "Activating Cyber Mode... [OK]",
-      "System Boot Complete. Welcome, Sankar."
-    ];
-
-    const bootTextEl = document.getElementById('boot-text');
-    let i = 0;
-
-    function typeBootText() {
-      if (i < bootLines.length) {
-        const line = document.createElement('div');
-        line.textContent = "> " + bootLines[i];
-        bootTextEl.appendChild(line);
-        bootTextEl.classList.add('boot-flicker');
-        i++;
-        setTimeout(typeBootText, 400);
-      } else {
-        setTimeout(() => {
-          document.getElementById('boot-screen').classList.add('fade-out');
-        }, 1000);
-      }
-    }
-
-    window.addEventListener('load', () => {
-      setTimeout(typeBootText, 600);
-    });
-  </script>
-
-  <!-- 🌀 Interactive Particle Depth Background -->
-  <script>
-    const canvas = document.getElementById('particle-bg');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    const particles = [];
-    const numParticles = 80;
-
-    for (let i = 0; i < numParticles; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        z: Math.random() * 3 + 0.5,
-        size: Math.random() * 2 + 0.5,
-        color: `rgba(0,255,200,${Math.random() * 0.8})`
-      });
-    }
-
-    let mouseX = width / 2;
-    let mouseY = height / 2;
-
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      for (let p of particles) {
-        const dx = (mouseX - width / 2) * 0.001 * p.z;
-        const dy = (mouseY - height / 2) * 0.001 * p.z;
-        p.x += dx;
-        p.y += dy;
-
-        if (p.x > width) p.x = 0;
-        if (p.x < 0) p.x = width;
-        if (p.y > height) p.y = 0;
-        if (p.y < 0) p.y = height;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-      }
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    animate();
-  </script>
-
-  <!-- ✨ Typed.js Animation -->
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      new Typed("#typed-text", {
-        strings: [
-          "Cybersecurity Student",
-          "Linux Enthusiast",
-          "Builder of Secure Tools"
-        ],
-        typeSpeed: 60,
-        backSpeed: 40,
-        loop: true
-      });
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
+
 </html>
