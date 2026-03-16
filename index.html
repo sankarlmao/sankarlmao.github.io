@@ -16,6 +16,14 @@
 </head>
 
 <body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Ambient Background Layers -->
+  <div class="ambient-layer layer-1" data-speed="0.2"></div>
+  <div class="ambient-layer layer-2" data-speed="-0.15"></div>
+  <div class="ambient-layer layer-3" data-speed="0.3"></div>
+
   <!-- Cursor glow -->
   <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -653,6 +661,56 @@
     </div>
   </section>
 
+  <!-- Secret Login & Notes Section -->
+  <section class="section section-alt" id="secret">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">08</span>
+        <h2 class="section-title">Terminal Access</h2>
+        <div class="section-line"></div>
+      </div>
+      
+      <!-- Login Area -->
+      <div class="secret-login reveal" id="secretLogin">
+        <div class="login-wrapper">
+          <div class="login-header">
+            <span class="login-icon">🔐</span>
+            <h3>Restricted Area</h3>
+            <p>Authentication Required</p>
+          </div>
+          <form class="login-form" id="loginForm">
+            <div class="input-group">
+              <input type="text" id="loginUser" placeholder="Username" required autocomplete="off">
+            </div>
+            <div class="input-group">
+              <input type="password" id="loginPass" placeholder="Password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary login-btn">Login</button>
+            <div id="loginError" class="login-error"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Dashboard Area (Hidden by default) -->
+      <div class="secret-dashboard" id="secretDashboard" style="display: none;">
+        <div class="dashboard-header">
+          <div class="dashboard-user">
+            <span class="status-dot"></span>
+            Logged in as: <strong>sank</strong>
+          </div>
+          <button id="logoutBtn" class="btn btn-secondary btn-sm">Disconnect</button>
+        </div>
+        <div class="dashboard-content">
+          <div class="notes-header">
+            <h3>Encrypted Notes</h3>
+            <span class="save-status" id="saveStatus">Saved</span>
+          </div>
+          <textarea id="secretNotes" class="notes-area" placeholder="Write sensitive data here... Auto-saves locally."></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -670,6 +728,9 @@
     </div>
   </footer>
 
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="app.js"></script>
 </body>
 

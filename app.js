@@ -5,15 +5,51 @@
 
 // ---- Wait for DOM ----
 document.addEventListener('DOMContentLoaded', () => {
+  initLenis();
   initParticles();
   initCursorGlow();
   initNavigation();
   initTypewriter();
-  initScrollReveal();
+  initGSAPReveal();
+  initParallax();
+  initMagnetic();
+  initScrollProgress();
   initCounterAnimation();
   initSmoothScroll();
   initActiveNav();
+  initSecretArea();
 });
+
+// ---- Lenis Smooth Scroll ----
+let lenis;
+function initLenis() {
+  if (typeof Lenis === 'undefined') return;
+  lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0, 0);
+  }
+}
 
 // ---- Particle System ----
 function initParticles() {
@@ -200,22 +236,94 @@ function initTypewriter() {
   setTimeout(type, 1000);
 }
 
-// ---- Scroll Reveal ----
-function initScrollReveal() {
-  const reveals = document.querySelectorAll('.reveal');
+// ---- GSAP Reveal Animations ----
+function initGSAPReveal() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach((el) => {
+    gsap.fromTo(el, 
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+}
+
+// ---- Parallax Layers ----
+function initParallax() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  const layers = document.querySelectorAll('.ambient-layer');
+  layers.forEach(layer => {
+    const speed = layer.getAttribute('data-speed') || 0.5;
+    gsap.to(layer, {
+      y: () => (ScrollTrigger.maxScroll(window) * speed),
+      ease: "none",
+      scrollTrigger: {
+        trigger: document.body,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
   });
+}
 
-  reveals.forEach(el => observer.observe(el));
+// ---- Magnetic Hover Effect ----
+function initMagnetic() {
+  if (window.innerWidth < 768 || typeof gsap === 'undefined') return;
+  const magneticEls = document.querySelectorAll('.btn, .social-link, .nav-link, .project-link-icon, .contact-card');
+  
+  magneticEls.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) - (rect.width / 2);
+      const y = (e.clientY - rect.top) - (rect.height / 2);
+      
+      gsap.to(el, {
+        x: x * 0.4,
+        y: y * 0.4,
+        duration: 0.6,
+        ease: "power3.out"
+      });
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, {
+        x: 0,
+        y: 0,
+        duration: 0.7,
+        ease: "elastic.out(1, 0.3)"
+      });
+    });
+  });
+}
+
+// ---- Scroll Progress ----
+function initScrollProgress() {
+  const progressBar = document.getElementById('scrollProgress');
+  if (!progressBar || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  
+  gsap.to(progressBar, {
+    width: "100%",
+    ease: "none",
+    scrollTrigger: {
+      trigger: document.body,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.3
+    }
+  });
 }
 
 // ---- Counter Animation ----
@@ -262,7 +370,11 @@ function initSmoothScroll() {
       e.preventDefault();
       const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (typeof lenis !== 'undefined') {
+          lenis.scrollTo(target);
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     });
   });
@@ -313,3 +425,87 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// ---- Secret Area (Login & Notes) ----
+function initSecretArea() {
+  const loginForm = document.getElementById('loginForm');
+  const loginUser = document.getElementById('loginUser');
+  const loginPass = document.getElementById('loginPass');
+  const loginError = document.getElementById('loginError');
+  const secretLogin = document.getElementById('secretLogin');
+  const secretDashboard = document.getElementById('secretDashboard');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const secretNotes = document.getElementById('secretNotes');
+  const saveStatus = document.getElementById('saveStatus');
+  
+  if (!loginForm) return;
+
+  const SESSION_KEY = 'portfolio_auth_token';
+  const NOTES_KEY = 'portfolio_secret_notes';
+
+  // Check if already logged in
+  if (localStorage.getItem(SESSION_KEY) === 'true') {
+    showDashboard();
+  }
+
+  // Handle Login
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (loginUser.value.trim() === 'sank' && loginPass.value.trim() === 'sank') {
+      localStorage.setItem(SESSION_KEY, 'true');
+      showDashboard();
+      loginError.textContent = '';
+      loginForm.reset();
+    } else {
+      loginError.textContent = 'ACCESS DENIED: Invalid credentials';
+      // Add shake animation
+      if (typeof gsap !== 'undefined') {
+        gsap.fromTo(loginForm, { x: -10 }, { x: 10, duration: 0.1, yoyo: true, repeat: 3, onComplete: () => { gsap.set(loginForm, {x: 0}) } });
+      }
+    }
+  });
+
+  // Handle Logout
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem(SESSION_KEY);
+    secretDashboard.style.display = 'none';
+    secretLogin.style.display = 'block';
+    
+    // Refresh ScrollTrigger since layout changed
+    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+  });
+
+  // Auto-save logic
+  let saveTimeout;
+  secretNotes.addEventListener('input', () => {
+    saveStatus.textContent = 'Saving...';
+    saveStatus.style.color = 'var(--text-muted)';
+    
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(() => {
+      localStorage.setItem(NOTES_KEY, secretNotes.value);
+      saveStatus.textContent = 'Saved';
+      saveStatus.style.color = 'var(--accent-green)';
+      
+      // Reset color after a bit
+      setTimeout(() => {
+        saveStatus.style.color = 'var(--text-muted)';
+      }, 2000);
+    }, 1000); 
+  });
+
+  function showDashboard() {
+    secretLogin.style.display = 'none';
+    secretDashboard.style.display = 'block';
+    
+    // Load notes
+    const savedNotes = localStorage.getItem(NOTES_KEY);
+    if (savedNotes) {
+      secretNotes.value = savedNotes;
+    }
+    
+    // Refresh ScrollTrigger since layout changed
+    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+  }
+}
+
