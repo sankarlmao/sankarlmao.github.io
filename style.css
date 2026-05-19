@@ -474,6 +474,93 @@ ul { list-style: none; }
 
 .center-cta { text-align: center; margin-top: 3rem; }
 
+/* ---- Month's Best Picture ---- */
+.best-pic-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.best-pic-frame {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 60px rgba(212,162,78,0.04);
+  transition: 0.5s var(--ease);
+}
+.best-pic-frame::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--red));
+  z-index: 2;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease);
+}
+.best-pic-frame:hover::before {
+  transform: scaleX(1);
+}
+.best-pic-frame:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 30px 100px rgba(0,0,0,0.6), 0 0 100px rgba(212,162,78,0.08);
+  transform: translateY(-4px);
+}
+.best-pic-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(15%) contrast(1.05);
+  transition: 0.6s var(--ease);
+}
+.best-pic-frame:hover img {
+  filter: grayscale(0%) contrast(1.1);
+  transform: scale(1.02);
+}
+.best-pic-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 35%;
+  background: linear-gradient(to top, rgba(6,6,6,0.7), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+.best-pic-info {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+.best-pic-date {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: rgba(212,162,78,0.05);
+}
+.best-pic-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+.best-pic-desc {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 /* ---- Skills ---- */
 .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
 .skill-block {
