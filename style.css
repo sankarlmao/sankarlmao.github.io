@@ -698,3 +698,64 @@ ul { list-style: none; }
   .container { padding: 0 1rem; }
   .hero-cta { flex-direction: column; }
 }
+
+/* ---- Easter Egg Button ---- */
+.easter-egg-btn {
+  background: rgba(12, 12, 12, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  padding: 0.65rem 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  border-radius: 4px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.easter-egg-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(212, 162, 78, 0.18);
+  background: rgba(26, 26, 26, 0.95);
+}
+
+.easter-egg-btn:active {
+  transform: translateY(-1px);
+}
+
+.easter-prefix {
+  color: var(--red);
+  font-weight: 700;
+  transition: color 0.3s var(--ease);
+}
+
+.easter-egg-btn:hover .easter-prefix {
+  color: var(--gold);
+}
+
+.easter-suffix {
+  color: var(--text-muted);
+  transition: color 0.3s var(--ease);
+}
+
+.easter-egg-btn:hover .easter-suffix {
+  color: var(--gold-light);
+}
+
+@media (max-width: 768px) {
+  .easter-egg-btn {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.65rem;
+  }
+}
+
