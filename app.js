@@ -40,7 +40,7 @@ function initCursor() {
     requestAnimationFrame(loop);
   })();
   // Scale up on interactive elements
-  document.querySelectorAll('a, button, .proj-card, .contact-item').forEach(el => {
+  document.querySelectorAll('a, button, .proj-card, .contact-item, .company-card').forEach(el => {
     el.addEventListener('mouseenter', () => { dot.style.transform = 'translate(-50%,-50%) scale(3)'; dot.style.opacity = '0.5'; });
     el.addEventListener('mouseleave', () => { dot.style.transform = 'translate(-50%,-50%) scale(1)'; dot.style.opacity = '1'; });
   });
@@ -118,6 +118,15 @@ function initScrollAnimations() {
       { opacity: 1, y: 0, rotation: 0, scale: 1, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' },
         delay: (i % 2) * 0.1 });
+  });
+
+  // Company cards cascade with rotation
+  gsap.utils.toArray('.company-card').forEach((el, i) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 50, rotation: i % 2 === 0 ? -1.5 : 1.5, scale: 0.97 },
+      { opacity: 1, y: 0, rotation: 0, scale: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' },
+        delay: (i % 3) * 0.1 });
   });
 
   // Project cards stagger
@@ -251,7 +260,7 @@ function initActiveNav() {
 // ---- Card Tilt ----
 function initCardTilt() {
   if (window.innerWidth < 768) return;
-  document.querySelectorAll('.proj-card, .exp-card').forEach(card => {
+  document.querySelectorAll('.proj-card, .exp-card, .company-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
       const rx = (e.clientY - r.top - r.height / 2) / 20;
