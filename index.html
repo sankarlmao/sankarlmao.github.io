@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="module" src="/src/main.jsx"></script>
 </head>
 
 <body>
@@ -75,9 +76,7 @@
         </div>
       </div>
 
-      <div class="hero-profile">
-        <img src="assets/sankar-about.jpg" alt="Sankar B" loading="eager">
-      </div>
+      <div class="hero-profile" id="lanyard-root"></div>
 
       <div class="hero-scroll">
         <span>Scroll</span>
@@ -505,6 +504,9 @@
         <div class="gh-card gh-wide">
           <img src="https://github-readme-activity-graph.vercel.app/graph?username=sankarlmao&theme=react-dark&hide_border=true&bg_color=00000000&color=a8a197&line=e8a849&point=c43e3e&area=true&area_color=e8a849" alt="Contribution Graph" loading="lazy">
         </div>
+        <div class="gh-card gh-wide gh-chart-card">
+          <img src="assets/github-commits.svg" alt="GitHub Commit Grid Chart" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
@@ -561,7 +563,7 @@
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="app.js"></script>
+  <script type="module" src="/app.js"></script>
 </body>
 
 </html>
