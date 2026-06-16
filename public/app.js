@@ -2,6 +2,7 @@
    SANKAR B — EDITORIAL BRUTALIST JS
    ============================================= */
 document.addEventListener('DOMContentLoaded', () => {
+  fetchGitHubStats();
   initLenis();
   initCursor();
   initNav();
@@ -269,4 +270,61 @@ function initCardTilt() {
     });
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
+}
+
+// ---- Fetch GitHub Stats ----
+async function fetchGitHubStats() {
+  try {
+    const userRes = await fetch('https://api.github.com/users/sankarlmao');
+    if (userRes.ok) {
+      const userData = await userRes.json();
+      const repos = userData.public_repos;
+      const followers = userData.followers;
+
+      const repoEl = document.getElementById('repo-count');
+      const followerEl = document.getElementById('follower-count');
+
+      if (repoEl) {
+        repoEl.setAttribute('data-count', repos);
+        if (repoEl.dataset.done === '1') {
+          repoEl.textContent = repos + '+';
+        }
+      }
+      if (followerEl) {
+        followerEl.setAttribute('data-count', followers);
+        if (followerEl.dataset.done === '1') {
+          followerEl.textContent = followers + '+';
+        }
+      }
+
+      document.querySelectorAll('.js-repo-count').forEach(el => {
+        el.textContent = repos + '+';
+      });
+      const viewReposBtn = document.getElementById('view-repos-btn');
+      if (viewReposBtn) {
+        viewReposBtn.textContent = `View All ${repos} Repositories ↗`;
+      }
+    }
+  } catch (err) {
+    console.error('Failed to fetch GitHub stats:', err);
+  }
+
+  try {
+    const contribRes = await fetch('https://github-contributions-api.jogruber.de/v4/sankarlmao');
+    if (contribRes.ok) {
+      const contribData = await contribRes.json();
+      if (contribData && contribData.total) {
+        const total = Object.values(contribData.total).reduce((a, b) => a + b, 0);
+        const contribEl = document.getElementById('contrib-count');
+        if (contribEl) {
+          contribEl.setAttribute('data-count', total);
+          if (contribEl.dataset.done === '1') {
+            contribEl.textContent = total + '+';
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Failed to fetch contributions:', err);
+  }
 }
