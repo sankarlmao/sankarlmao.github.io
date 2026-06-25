@@ -158,14 +158,36 @@ ul { list-style: none; }
   letter-spacing: 0.08em; margin-top: 0.3rem; display: block;
 }
 .hero-profile {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  right: 0;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 450px;
+  height: 550px;
   opacity: 0;
-  z-index: 9999;
-  pointer-events: none;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+@media (max-width: 1200px) {
+  .hero-profile {
+    width: 380px;
+    height: 480px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-profile {
+    width: 320px;
+    height: 420px;
+    right: -20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-profile {
+    display: none !important;
+  }
 }
 .hero-scroll {
   position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
@@ -200,6 +222,75 @@ ul { list-style: none; }
   border-radius: 4px; cursor: pointer; transition: 0.3s var(--ease);
 }
 .btn-outline:hover { background: rgba(212,162,78,0.08); transform: translateY(-2px); }
+
+/* Creative Resume Download Button */
+.btn-resume-creative {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.8rem;
+  background: rgba(212, 162, 78, 0.03);
+  color: var(--gold);
+  border: 1px dashed var(--gold);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.4s var(--ease);
+  box-shadow: 0 0 0 rgba(212, 162, 78, 0);
+  cursor: pointer;
+}
+
+.btn-resume-creative::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 162, 78, 0.15), transparent);
+  transition: transform 0.6s var(--ease);
+  pointer-events: none;
+}
+
+.btn-resume-creative:hover::before {
+  transform: translateX(200%);
+}
+
+.btn-resume-creative:hover {
+  background: rgba(212, 162, 78, 0.08);
+  border-style: solid;
+  border-color: var(--gold-light);
+  color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 162, 78, 0.12);
+}
+
+.btn-resume-creative .btn-icon {
+  font-size: 1rem;
+  display: inline-block;
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.btn-resume-creative:hover .btn-icon {
+  transform: translateY(2px) scale(1.1);
+}
+
+.btn-resume-creative .btn-meta {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  border-left: 1px solid rgba(212, 162, 78, 0.2);
+  padding-left: 0.8rem;
+  margin-left: 0.2rem;
+  transition: color 0.3s, border-left-color 0.3s;
+}
+
+.btn-resume-creative:hover .btn-meta {
+  color: var(--gold-light);
+  border-left-color: var(--gold-light);
+}
 
 /* ---- Marquee ---- */
 .marquee {

@@ -46,6 +46,8 @@ export default function Lanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  if (isMobile) return null;
+
   return (
     <div className="lanyard-wrapper">
       <Canvas
@@ -183,35 +185,7 @@ function Band({
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
 
-  useEffect(() => {
-    const handlePointerMove = (e) => {
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      
-      const dx = clientX - cardScreenPos.current.x;
-      const dy = clientY - cardScreenPos.current.y;
-      const dist = Math.hypot(dx, dy);
-      
-      const root = document.getElementById('lanyard-root');
-      if (root) {
-        if (dragged || dist < 120) {
-          root.style.pointerEvents = 'auto';
-        } else {
-          root.style.pointerEvents = 'none';
-        }
-      }
-    };
-
-    window.addEventListener('mousemove', handlePointerMove, { passive: true });
-    window.addEventListener('touchmove', handlePointerMove, { passive: true });
-    window.addEventListener('touchstart', handlePointerMove, { passive: true });
-    
-    return () => {
-      window.removeEventListener('mousemove', handlePointerMove);
-      window.removeEventListener('touchmove', handlePointerMove);
-      window.removeEventListener('touchstart', handlePointerMove);
-    };
-  }, [dragged]);
+  // Pointer events toggling is removed as the container is now bounded and sized on the right side of the hero section.
 
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
@@ -269,8 +243,8 @@ function Band({
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.needsUpdate = true;
 
-  const fixedX = isMobile ? 0 : viewport.width / 2 - 2.5;
-  const fixedY = isMobile ? viewport.height / 2 + 1.5 : viewport.height / 2 + 2.0;
+  const fixedX = 0;
+  const fixedY = viewport.height / 2 + 1.2;
 
   return (
     <>
