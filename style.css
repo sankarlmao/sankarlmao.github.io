@@ -106,9 +106,19 @@ ul { list-style: none; }
 .hero {
   min-height: 100vh; display: flex; align-items: center;
   position: relative; overflow: hidden; padding: 6rem 2.5rem 3rem;
+  z-index: 1;
 }
 .hero-inner {
-  width: 100%; max-width: 1400px; margin: 0 auto; position: relative;
+  width: 100%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;
+}
+#pixel-trail-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
 }
 .hero-top {
   display: flex; justify-content: space-between;
@@ -312,7 +322,7 @@ ul { list-style: none; }
 
 /* ---- Section ---- */
 .section { padding: 8rem 0; position: relative; z-index: 1; }
-.section-dark { background: var(--bg-alt); }
+.section-dark { background: rgba(12, 12, 12, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .section-label {
   font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
   color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em;
@@ -650,7 +660,9 @@ ul { list-style: none; }
   padding: 4.5rem 2rem;
   position: relative;
   z-index: 1;
-  background: var(--bg);
+  background: rgba(6, 6, 6, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   overflow: hidden;
 }
 .quote-inner {
@@ -871,7 +883,7 @@ ul { list-style: none; }
 
 /* ---- Footer ---- */
 .footer {
-  padding: 2.5rem 0; border-top: 1px solid var(--border); background: var(--bg);
+  padding: 2.5rem 0; border-top: 1px solid var(--border); background: rgba(6, 6, 6, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); position: relative; z-index: 1;
 }
 .footer-inner {
   display: flex; align-items: center; justify-content: space-between;
